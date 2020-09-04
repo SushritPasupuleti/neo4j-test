@@ -20,9 +20,14 @@ app.get('/', (req, res) => {
   
   session.run(
     'MATCH (n) RETURN n LIMIT 25'
-    ).then(() => {
-      
-    }).catch();
+    ).then((result) => {
+      result.records.forEach((record) => {
+        console.log(record._fields[0].properties)
+      })
+    }).catch((err) => {
+      console.log("error", err);
+      res.send("Error")
+    });
     
     res.send('Neo4j connection status: active')
 })
