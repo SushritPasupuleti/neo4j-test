@@ -1,12 +1,14 @@
+require('dotenv').config()
+
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const neo4j = require('neo4j-driver')
 
 const port = 5000
-const uri = 'bolt://localhost'
-const user = 'neo4j'
-const password = 'neo4j'
+const uri = process.env.URL
+const user = process.env.USER
+const password = process.env.PASSWORD
 //Middleware//
 app.use(bodyParser.json());
 //Middleware//
