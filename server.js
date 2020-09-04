@@ -51,6 +51,24 @@ app.get('/avengers', (req, res) => {
   });
 })
 
+app.get('/justice-league', (req, res) => {
+
+  var league = []
+  session.run(
+    'MATCH (a:Person)-[r:MemberOf]->(b:Group {name: "Justice League"}) RETURN a'
+  ).then((result) => {
+    result.records.forEach((record) => {
+      console.log(record._fields[0].properties)
+      league.push(record._fields[0].properties.name)
+    })
+    console.log("Justice League: ", league)
+    res.send('Justice League: ' + league)
+
+  }).catch((err) => {
+    console.log("error", err);
+    res.send("Error")
+  });
+})
 
 app.listen(port, () => {
   console.log(`Neo4j server listening at http://localhost:${port}`)
